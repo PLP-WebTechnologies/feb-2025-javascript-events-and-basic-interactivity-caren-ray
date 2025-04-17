@@ -1,0 +1,128 @@
+<!-- You will create a functional webpage that demonstrates the following JavaScript concepts:
+
+Use event listeners effectively.
+Implement form validation.
+Add interactive elements. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      display: flex;
+      justify-content: center;
+      padding: 50px;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #ccc;
+      width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .char-counter {
+      font-size: 12px;
+      color: gray;
+      text-align: right;
+    }
+
+    .error {
+      color: red;
+      font-size: 13px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required />
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+      <div id="emailError" class="error"></div>
+
+      <label for="message">Message:</label>
+      <textarea id="message" rows="5" maxlength="200" required></textarea>
+      <div class="char-counter" id="charCounter">0 / 200</div>
+
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('contactForm');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('emailError');
+    const messageInput = document.getElementById('message');
+    const charCounter = document.getElementById('charCounter');
+
+    // Update character counter as user types
+    messageInput.addEventListener('input', () => {
+      charCounter.textContent = `${messageInput.value.length} / 200`;
+    });
+
+    // Validate form on submit
+    form.addEventListener('submit', (e) => {
+      e.preventDefault(); // prevent real submission
+
+      emailError.textContent = ''; // clear any previous error
+
+      const emailValue = emailInput.value.trim();
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+
+      if (!emailPattern.test(emailValue)) {
+        emailError.textContent = 'Please enter a valid email address.';
+        return;
+      }
+
+      // If validation passes
+      alert('Message sent successfully!');
+      form.reset();
+      charCounter.textContent = '0 / 200';
+    });
+  </script>
+</body>
+</html>
